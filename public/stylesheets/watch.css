@@ -1,0 +1,97 @@
+/* Reset some default styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9; /* Light gray background similar to YouTube */
+}
+
+/* Main container for the watch page */
+#watch-container {
+  max-width: 1280px; /* Increased max width for better readability */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff; /* White background for video container */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Shadow for video container */
+}
+
+/* Video player */
+#video-player {
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  position: relative;
+  background-color: #000; /* Black background similar to YouTube */
+}
+
+#video-player iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Video title */
+.video-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #333; /* Dark text color similar to YouTube */
+}
+
+/* Video description */
+.video-description {
+  margin-top: 10px;
+  color: #555; /* Slightly darker gray text color similar to YouTube */
+}
+
+/* Comments section */
+#comments-section {
+  margin-top: 20px;
+  background-color: #fff; /* White background for comments section */
+  padding: 20px;
+  border: 1px solid #ddd; /* Light gray border for comments section */
+}
+
+/* Comment item */
+.comment-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd; /* Light gray border for comments */
+  background-color: #fff; /* White background for comments */
+}
+
+.comment-item .comment-author {
+  font-weight: bold;
+}
+
+.comment-item .comment-text {
+  margin-top: 5px;
+  color: #333;
+}
+
+/* Form for adding a new comment */
+#new-comment-form {
+  margin-top: 20px;
+}
+
+#new-comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  resize: vertical;
+}
+
+#new-comment-form button {
+  margin-top: 10px;
+  background-color: #0073e6;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#new-comment-form button:hover {
+  background-color: #005bbf;
+}

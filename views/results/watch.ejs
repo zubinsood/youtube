@@ -1,8 +1,30 @@
-<thead>
-    <tr>
-      <th><%= video.title %></th>
-      <th></th>
-    </tr>
-</thead>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/<%= video.videoId %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= video.title %></title>
+    <link rel="stylesheet" href="/stylesheets/watch.css">
+</head>
+<body>
+    <div id="watch-container">
+        <div id="video-player">
+            <iframe
+                class="video-player"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/<%= video.videoId %>"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            ></iframe>
+        </div>
+        <div id="video-info">
+            <h1 class="video-title"><%= video.title %></h1>
+            <p class="video-description">Video description goes here.</p>
+        </div>
+        <div id="comments-section">
+            <!-- Comments go here -->
+        </div>
+    </div>
+</body>
+</html>

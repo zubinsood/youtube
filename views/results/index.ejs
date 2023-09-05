@@ -1,16 +1,35 @@
-<table id="list">
-    <thead>
-      <tr>
-        <th>All Search Results</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% videos.forEach(function(v) { %>
-        <tr>
-          <td><a href="../watch/<%= v.videoId %>"><%= v.title %></a></td>
-          <td><a href="../watch/<%= v.videoId %>"><img src="<%= v.thumbnail %>"></a></td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Search Results</title>
+    <link rel="stylesheet" href="/stylesheets/results.css">
+</head>
+<body>
+    <div id="list-container">
+        <table id="list">
+            <thead>
+                <tr>
+                    <th class="table-header">All Search Results</th>
+                    <th class="table-header"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% videos.forEach(function(v) { %>
+                <tr>
+                    <td class="video-title">
+                        <a href="../watch/<%= v.videoId %>"><%= v.title %></a>
+                    </td>
+                    <td class="video-thumbnail">
+                        <a href="../watch/<%= v.videoId %>">
+                            <img src="<%= v.thumbnail %>" alt="<%= v.title %>">
+                        </a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
