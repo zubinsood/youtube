@@ -1,0 +1,16 @@
+<table id="list">
+    <thead>
+      <tr>
+        <th>All Search Results</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% videos.forEach(function(v) { %>
+        <tr>
+          <td><%= v.title %></td>
+          <td><img src="<%= v.thumbnail %>"></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
