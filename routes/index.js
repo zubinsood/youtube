@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const Video = require('../models/videos'); // Adjust the path as needed
-const resultsCtrl = require('../controllers/results');
-const results = require('../controllers/results');
+const resultsCtrl = require('../controllers/videos');
+const results = require('../controllers/videos');
 
 const token = process.env.YOUTUBE_TOKEN;
 const ROOT_URL = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=date';
@@ -24,7 +24,8 @@ router.get('/', async function(req, res, next) {
       const customData = apiData.items.map(item => {
         const title = item.snippet.title;
         const thumbnail = item.snippet.thumbnails.default.url;
-        return new Video({ title, thumbnail });
+        const videoId = item.id.videoId;
+        return new Video({ title, thumbnail, videoId });
       });
       resultsCtrl.setCustomData(customData);
       // Redirect to the /results route

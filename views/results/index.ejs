@@ -8,8 +8,8 @@
     <tbody>
       <% videos.forEach(function(v) { %>
         <tr>
-          <td><%= v.title %></td>
-          <td><img src="<%= v.thumbnail %>"></td>
+          <td><a href="../watch/<%= v.videoId %>"><%= v.title %></a></td>
+          <td><a href="../watch/<%= v.videoId %>"><img src="<%= v.thumbnail %>"></a></td>
         </tr>
         <% }); %>
       </tbody>
