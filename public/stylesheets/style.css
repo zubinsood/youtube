@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+    font-family: Helvetica;
+    color: #424748;
+}
+
+nav>img {
+    width: 34px;
+    object-fit: contain;
+    margin-right: auto;
+}
+
+body>main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E8ECEB;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+body>main h1:first-child {
+    margin-bottom: 50px;
+}
+
+nav>a {
+    margin: 20px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+nav>a:hover:not(.active) {
+    color: white;
+    background-color: #424748;
+}
+
+nav>a.active {
+    color: white;
+    cursor: default;
+}
+
+.login {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: #606060;
+    /* YouTube's text color for unvisited links */
+}
+
+.login img {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+}
+
+body > nav {
+    grid-area: nav;
+    background-color: #B8C0C2;
+    display: flex;
+    justify-content: space-between; /* Adjust alignment */
+    align-items: center;
+    padding: 0 30px; /* Adjust padding */
+}
+
+nav h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar {
+    width: 750px;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #FF0000;
+    /* YouTube red color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #CC0000;
+    /* Slightly darker red on hover */
+}

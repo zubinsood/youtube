@@ -1,30 +1,85 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title><%= video.title %></title>
-    <link rel="stylesheet" href="/stylesheets/watch.css">
-</head>
-<body>
-    <div id="watch-container">
-        <div id="video-player">
-            <iframe
-                class="video-player"
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/<%= video.videoId %>"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-            ></iframe>
+<%- include('../partials/header') %>
+
+    <head>
+        <title>
+            <%= video.title %>
+        </title>
+        <link rel="stylesheet" href="/stylesheets/watch.css">
+    </head>
+
+    <body>
+        <div id="watch-container">
+            <div id="video-player">
+                <iframe class="video-player" width="560" height="315"
+                    src="https://www.youtube.com/embed/<%= video.videoId %>" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+            <div id="video-info">
+                <h1 class="video-title">
+                    <%= video.title %>
+                </h1>
+                <button id="playlists-button">Save</button>
+                <% if (user) { %>
+                    <div id="playlists-container" class="hidden">
+                        <div id="playlists-menu">
+                            <div id="list-header">Save video to...</div>
+                            <div><%- user.playlists %></div>
+                            <div><button>Create new playlist</button></div>
+                        </div>
+                        <div id="new-playlist-form">
+                            <form action="/watch/<%= video.videoId %>" method="POST">
+                                <label>Title:</label>
+                                <input type="text" name="playlist-title">
+                                <label>Description:</label>
+                                <input type="text" name="playlist-description">
+
+                                <button>Create</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div id="guest-container" class="hidden">
+                            <div id="guest-menu">
+                                <div id="guest-header">Want to watch this again later?</div>
+                                <div id="guest-message">Sign in to add this video to a playlist.</div>
+                                <div>Sign in</div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <p class="video-description">
+                                <%= video.description %>
+                            </p>
+            </div>
+
+            <div id="comments-section">
+                <!-- Comments go here -->
+            </div>
         </div>
-        <div id="video-info">
-            <h1 class="video-title"><%= video.title %></h1>
-            <p class="video-description">Video description goes here.</p>
-        </div>
-        <div id="comments-section">
-            <!-- Comments go here -->
-        </div>
-    </div>
-</body>
-</html>
+    </body>
+
+    <script>
+        // Get references to the button and the dropdown menus
+        const playlistsButton = document.getElementById('playlists-button');
+
+        // Check if user is logged in and get reference to the corresponding menu
+        const playlistsContainer = document.getElementById('playlists-container');
+        const guestContainer = document.getElementById('guest-container');
+
+        // Add a click event listener to the button
+        playlistsButton.addEventListener('click', () => {
+            if (playlistsContainer) {
+                playlistsContainer.classList.toggle('hidden');
+            } else if (guestContainer) {
+                guestContainer.classList.toggle('hidden');
+            }
+        });
+        const createPlaylistButton = document.getElementById('create-playlist-button');
+        const newPlaylistForm = document.getElementById('new-playlist-form');
+
+        createPlaylistButton.addEventListener('click', () => {
+            newPlaylistForm.classList.toggle('hidden');
+        });
+    </script>
