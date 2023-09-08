@@ -55,15 +55,6 @@ nav>a.active {
     margin-left: 8px;
 }
 
-body > nav {
-    grid-area: nav;
-    background-color: #B8C0C2;
-    display: flex;
-    justify-content: space-between; /* Adjust alignment */
-    align-items: center;
-    padding: 0 30px; /* Adjust padding */
-}
-
 nav h1 {
     font-size: 24px;
     font-weight: bold;
@@ -91,4 +82,36 @@ nav h1 {
 .btn:hover {
     background-color: #CC0000;
     /* Slightly darker red on hover */
+}
+
+nav {
+    background-color: #ffffff; /* White background */
+    border-bottom: 1px solid #e2e2e2; /* Light border at the bottom */
+    height: 56px; /* Fixed height for the navbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px; /* Horizontal padding */
+}
+
+nav h1 {
+    color: #ff0000; /* YouTube red for the logo text */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar {
+    width: 60%; /* Take more width for the search bar */
+    padding: 8px 16px;
+    border: 1px solid #d3d3d3;
+    border-radius: 2px; /* Slight rounding of corners */
+}
+
+.btn {
+    background-color: #ff0000; /* YouTube red */
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 16px;
+    margin-left: 8px; /* Space between search bar and button */
 }

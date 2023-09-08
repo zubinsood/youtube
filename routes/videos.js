@@ -12,5 +12,7 @@ router.use('/:id', videosCtrl.populateVideo);
 router.get('/:id', videosCtrl.watch);
 // POST /watch/:id
 router.post('/:id', playlistsCtrl.createPlaylist);
+// POST /watch/:id for adding to playlist
+router.post('/:id', playlistsCtrl.addToPlaylist);
 
 module.exports = router;

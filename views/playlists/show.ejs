@@ -1,76 +1,77 @@
 <!DOCTYPE html>
 <%- include('../partials/header') %>
-    <html lang="en">
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>YouTube Playlist</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Playlist</title>
+    <link rel='stylesheet' href='/stylesheets/playlists.css'/>
+</head>
 
-    <body>
-        <div class="playlist-info-container">
-            <!-- Form for editing the playlist -->
-            <form action="/playlists/<%= playlist._id %>" method="POST">
-                <div class="form-group">
-                    <input type="text" id="title" name="title" value="<%= playlist.title %>" />
+<body>
+    <div class="playlist-info-container">
+        <!-- Form for editing the playlist -->
+        <form action="/playlists/<%= playlist._id %>" method="POST">
+            <div class="form-group">
+                <input type="text" id="title" name="title" value="<%= playlist.title %>" />
+            </div>
+            <div class="form-group">
+                <input id="description" name="description" value="<%= playlist.description %>" />
+            </div>
+            <button type="submit">Update Playlist</button>
+        </form>
+        <!-- Delete Playlist Button -->
+        <form action="/playlists/<%= playlist._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete Playlist</button>
+        </form>
+    </div>
+    <div class="videos-container">
+        <% if (playlist.videos.length===0) { %>
+        <p>No videos in this playlist yet.</p>
+        <% } else { %>
+        <% playlist.videos.forEach(function(video) { %>
+        <div class="video-row">
+            <div class="video-thumbnail">
+                <a href="../watch/<%= video.videoId %>">
+                    <img src="<%= video.thumbnail %>" alt="<%= video.title %>">
+                </a>
+            </div>
+            <div class="video-title">
+                <a href="../watch/<%= video.videoId %>">
+                    <%= video.title %>
+                </a>
+            </div>
+            <div class="video-actions">
+                <div class="video-delete">
+                    <!-- Delete button -->
+                    <button onclick="deleteVideo('<%= playlist._id %>', '<%= video._id %>')">Remove Video</button>
                 </div>
-                <div class="form-group">
-                    <textarea id="description" name="description"><%= playlist.description %></textarea>
-                </div>
-                <button type="submit">Update Playlist</button>
-            </form>
-            <!-- Delete Playlist Button -->
-            <form action="/playlists/<%= playlist._id %>?_method=DELETE" method="POST">
-                <button type="submit">Delete Playlist</button>
-            </form>
-
-            <!-- End of form -->
+            </div>
         </div>
-        <div class="videos-container">
-            <% if (playlist.videos.length===0) { %>
-                <p>No videos in this playlist yet.</p>
-                <% } %>
-                    <% playlist.videos.forEach(function(video) { %>
-                        <tr id="video-<%= video._id %>">
-                            <td class="video-title">
-                                <a href="../watch/<%= video.videoId %>">
-                                    <%= video.title %>
-                                </a>
-                            </td>
-                            <td class="video-thumbnail">
-                                <a href="../watch/<%= video.videoId %>">
-                                    <img src="<%= video.thumbnail %>" alt="<%= video.title %>">
-                                </a>
-                            </td>
-                            <td class="video-delete">
-                                <!-- Delete button -->
-                                <button onclick="deleteVideo('<%= playlist._id %>', '<%= video._id %>')">Remove
-                                    Video</button>
-                            </td>
-                        </tr>
-                        <% }) %>
-        </div>
+        <% }) %>
+        <% } %>
+    </div>
 
-        <script>
-            function deleteVideo(playlistId, videoId) {
-                fetch(`/playlists/${playlistId}/videos/${videoId}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Refresh the page to reflect the deletion
-                            location.reload();
-                        } else {
-                            // Handle failure (e.g., show an error message)
-                        }
-                    })
-                    .catch(err => {
-                        // Handle other errors
-                    });
-            }
-        </script>
-    </body>
+    <script>
+        function deleteVideo(playlistId, videoId) {
+            fetch(`/playlists/${playlistId}/videos/${videoId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Refresh the page to reflect the deletion
+                    location.reload();
+                } else {
+                    // Handle failure (e.g., show an error message)
+                }
+            })
+            .catch(err => {
+                // Handle other errors
+            });
+        }
+    </script>
+</body>
 
-    </html>
+</html>

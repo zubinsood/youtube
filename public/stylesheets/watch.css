@@ -1,99 +1,20 @@
-/* Reset some default styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9; /* Light gray background similar to YouTube */
-}
-
-/* Main container for the watch page */
 #watch-container {
-  max-width: 1280px; /* Increased max width for better readability */
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff; /* White background for video container */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Shadow for video container */
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Video player */
-#video-player {
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  position: relative;
-  background-color: #000; /* Black background similar to YouTube */
-}
-
-#video-player iframe {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* Video title */
 .video-title {
+  color: #181818;
   font-size: 24px;
   font-weight: bold;
-  margin-top: 20px;
-  color: #333; /* Dark text color similar to YouTube */
+  margin-top: 24px;
 }
 
-/* Video description */
 .video-description {
-  margin-top: 10px;
-  color: #555; /* Slightly darker gray text color similar to YouTube */
-}
-
-/* Comments section */
-#comments-section {
-  margin-top: 20px;
-  background-color: #fff; /* White background for comments section */
-  padding: 20px;
-  border: 1px solid #ddd; /* Light gray border for comments section */
-}
-
-/* Comment item */
-.comment-item {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd; /* Light gray border for comments */
-  background-color: #fff; /* White background for comments */
-}
-
-.comment-item .comment-author {
-  font-weight: bold;
-}
-
-.comment-item .comment-text {
-  margin-top: 5px;
-  color: #333;
-}
-
-/* Form for adding a new comment */
-#new-comment-form {
-  margin-top: 20px;
-}
-
-#new-comment-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  resize: vertical;
-}
-
-#new-comment-form button {
-  margin-top: 10px;
-  background-color: #0073e6;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-#new-comment-form button:hover {
-  background-color: #005bbf;
+  color: #767676; /* Gray color for description */
+  margin-top: 16px;
 }
 
 /* General styles */
@@ -134,18 +55,71 @@ body, html {
 }
 
 /* List item styles */
-#guest-menu div, #playlists-menu div {
+#guest-menu div, #playlists-menu div, #playlists-menu a {
   padding: 8px 16px;
   cursor: pointer;
   color: #ffffff;
   background-color: rgb(33,33,33);
 }
 
-/* When hovering over list items
-#guest-menu div:hover, #playlists-menu div:hover {
-
-} */
+/* Button styles for "Create new playlist" */
+#create-playlist-button {
+  padding: 8px 0;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: rgb(33,33,33);
+  border: none;
+  width: 100%; /* To make it span the entire width of the dropdown */
+  text-align: left; /* Align text to the left like the other dropdown items */
+  font-size: 16px; /* Match the font size of the other dropdown items */
+  outline: none; /* Remove the default focus outline */
+  transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
 
 #playlist-item, #playlist-none {
   color: #ffffff;
+}
+
+/* Styling for new-playlist-form */
+#new-playlist-form {
+  position: absolute;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(33,33,33);
+  padding: 16px; /* Added padding for inner spacing */
+}
+
+/* Styling for form labels */
+#new-playlist-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff; /* Dark text color */
+}
+
+/* Styling for form input fields */
+#new-playlist-form input[type="text"] {
+  color: white;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgb(241,241,241);
+  background-color: transparent;
+  outline: none;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+/* Styling for the form button */
+#new-playlist-form button {
+  background-color: rgb(40,40,40);
+  border: none;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s;
+}
+
+#new-playlist-form button:hover {
+  background-color: rgb(63,63,63);
 }

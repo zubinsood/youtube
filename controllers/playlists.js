@@ -7,6 +7,7 @@ module.exports = {
     show,
     getPlaylists,
     createPlaylist,
+    addToPlaylist,
     editPlaylist,
     deletePlaylist,
     deleteVideoFromPlaylist
@@ -94,6 +95,52 @@ async function createPlaylist(req, res) {
         await currentUser.save();
 
         res.render('results/watch', { video });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+async function addToPlaylist(req, res) {
+    console.log('add to palylist')
+    try {
+        console.log('req video', req.video);
+        const playlistId = req.body['playlist-id']; // Assuming you send the playlist ID in the request
+        const videoData = req.video; // Assuming you have middleware to populate this
+
+        // Check if the video already exists
+        let video = await Video.findOne({ videoId: videoData.videoId });
+
+        // If the video does not exist, create a new one
+        if (!video) {
+            video = new Video({
+                title: videoData.title,
+                thumbnail: videoData.thumbnail,
+                videoId: videoData.videoId,
+                description: videoData.description
+            });
+
+            await video.save();
+        }
+
+        // Find the playlist by ID
+        const playlist = await Playlist.findById(playlistId);
+
+        if (!playlist) {
+            return res.status(404).send('Playlist not found');
+        }
+
+        // Check if the video is already in the playlist
+        if (!playlist.videos.includes(video._id)) {
+            // Add the video to the playlist
+            playlist.videos.push(video._id);
+            await playlist.save();
+        } else {
+            return res.status(400).send('Video already exists in the playlist');
+        }
+
+        res.json({ success: true, message: 'Video added to playlist' });
+    
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

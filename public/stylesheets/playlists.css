@@ -1,0 +1,157 @@
+a {
+    color: #181818; /* Dark color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.playlist-info-container {
+    background-color: rgb(15,15,15);
+    padding: 24px;
+    border-bottom: 1px solid #e2e2e2; /* Separator between header and video list */
+}
+
+/* Playlist title input */
+input#title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid rgb(241,241,241);
+    width: 20%;
+    background-color: transparent;
+    outline: none;
+}
+
+/* Playlist description textarea */
+input#description {
+    color: white;
+    width: 20%;
+    border: none;
+    border-bottom: 1px solid rgb(241,241,241);
+    background-color: transparent;
+    outline: none;
+    margin-top: 16px;
+    resize: vertical;
+}
+
+/* Update and Delete buttons */
+button {
+    margin-top: 16px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #ff0000; /* YouTube red */
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+.videos-container {
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 24px;
+}
+
+/* Video list items */
+tr {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 16px 0;
+}
+
+.video-title a {
+    font-size: 18px;
+    color: #181818; /* Dark text color */
+    text-decoration: none;
+}
+
+.video-title a:hover {
+    text-decoration: underline;
+}
+
+.video-thumbnail img {
+    width: 120px; /* Thumbnail width */
+    height: 68px; /* Thumbnail height */
+    border-radius: 4px;
+}
+
+.video-delete button {
+    background-color: #e2e2e2; /* Gray button for delete */
+    color: #181818;
+}
+
+/* Dropdown for saving video to playlist */
+#playlists-button {
+    background-color: #181818;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#playlists-button:hover {
+    background-color: #000000; /* Slightly darker on hover */
+}
+
+#playlists-container {
+    position: absolute;
+    top: 100%; /* Position it below the button */
+    left: 0;
+    width: 240px; /* Fixed width for the dropdown */
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* To ensure it appears above other content */
+}
+
+/* Video list container */
+.videos-container {
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 24px;
+}
+
+/* Each video row */
+.video-row {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center the content */
+    padding: 16px 0; /* Vertical padding for spacing */
+    border-bottom: 1px solid #e2e2e2; /* Separator between videos */
+}
+
+.video-thumbnail img {
+    width: 120px; /* Thumbnail width */
+    height: 68px; /* Thumbnail height */
+    border-radius: 4px;
+    margin-right: 16px; /* Space between thumbnail and title */
+}
+
+.video-title {
+    flex-grow: 1; /* Allow the title to take up available space */
+    font-size: 18px;
+    color: #181818; /* Dark text color */
+}
+
+.video-title a {
+    text-decoration: none;
+}
+
+.video-title a:hover {
+    text-decoration: underline;
+}
+
+.video-actions {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center the content */
+    gap: 8px; /* Space between action buttons */
+}
+
+.video-delete button {
+    background-color: #e2e2e2; /* Gray button for delete */
+    color: #181818;
+}
