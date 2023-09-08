@@ -1,5 +1,6 @@
 const playlistsCtrl = require('../controllers/playlists');
 const Video = require('../models/videos');
+const User = require('../models/user');
 const Playlist = require('../models/playlists');
 const { getPlaylistByVideoId } = require('./playlists');
 
@@ -46,21 +47,28 @@ async function getVideoById(videoId) {
 }
 
 async function watch(req, res) {
-    // console.log('ID should be aK2Ia5RM-Ng', req.params.id);
     const videoId = req.params.id;
     const video = results.find(v => v.videoId === videoId);
-
+    
+    // Populate the 'playlists' field for the user if the user is logged in
+    if (req.user) {
+        const populatedUser = await User.findById(req.user.id).populate({
+            path: 'playlists',
+            select: 'title' // Include any additional fields you need
+        });
+        
+        req.user.playlists = populatedUser.playlists;
+    }
+    
     if (video) {
         req.video = video;
-        res.render('results/watch', { video });
+        res.render('results/watch', { video: req.video, user: req.user });
     } else if (!video) {
-        // console.log('WE ARE HITTING THIS CONDITIONA FROM PLAYLSITS');
-        
-        // Here you can populate the video and proceed.
+        // Populate the video and proceed.
         await populateVideo(req, res, async () => {
             // The video should now be available in req.video
             if (req.video) {
-                res.render('results/watch', { video: req.video });
+                res.render('results/watch', { video: req.video, user: req.user });
             } else {
                 res.status(404).send('Video not found');
             }
