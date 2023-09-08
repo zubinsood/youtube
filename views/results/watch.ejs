@@ -28,7 +28,7 @@
                             <div id="list-header">Save video to...</div>
                             <% if (user.playlists && user.playlists.length > 0) { %>
                                 <% user.playlists.forEach(function(playlist) { %>
-                                  <div id="playlist-item"><%= playlist.title %></div> <!-- assuming 'title' is a property of your playlist object -->
+                                  <div id="playlist-item"><%- console.log(playlist) %></div> <!-- assuming 'title' is a property of your playlist object -->
                                 <% }); %>
                               <% } else { %>
                                 <div id="playlist-none">No playlists available.</div>
