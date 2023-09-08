@@ -11,7 +11,7 @@ const userSchema = new Schema({
   avatar: String,
   playlists: [{
     type: Schema.Types.ObjectId,
-    ref: 'Playlists'
+    ref: 'Playlist'
   }]
 }, {
   timestamps: true

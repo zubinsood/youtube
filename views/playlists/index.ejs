@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Playlists</title>
+</head>
+<body>
+    <% playlists.forEach(function(playlist) { %>
+        <a href="/playlists/<%= playlist._id %>"><%= playlist.title %></a>
+    <% }) %>
+</body>

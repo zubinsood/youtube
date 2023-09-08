@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<%- include('../partials/header') %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Playlist</title>
+</head>
+<body>
+    <header>
+        <!-- You can add the YouTube header content here -->
+    </header>
+    <div class="container">
+        <div class="playlist-header">
+            <span class="playlist-title"><%- playlist.title %></span>
+            <span class="playlist-description"><%- playlist.description %></span>
+        </div>
+    </div>
+    <div class="videos-container">
+        <% playlist.videos.forEach(function(video) { %>
+        <tr>
+            <td class="video-title">
+                <a href="../watch/<%= video.videoId %>"><%= video.title %></a>
+            </td>
+            <td class="video-thumbnail">
+                <a href="../watch/<%= video.videoId %>">
+                    <img src="<%= video.thumbnail %>" alt="<%= video.title %>">
+                </a>
+            </td>
+        </tr>
+        <% }) %>
+    </div>
+</body>
+</html>

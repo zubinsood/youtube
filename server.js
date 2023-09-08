@@ -13,6 +13,7 @@ require('./config/passport');
 
 var indexRouter = require('./routes/index');
 var videosRouter = require('./routes/videos');
+var playlistsRouter = require('./routes/playlists');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/results', videosRouter);
 app.use('/watch', videosRouter);
+app.use('/playlists', playlistsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

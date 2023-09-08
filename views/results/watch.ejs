@@ -26,7 +26,13 @@
                     <div id="playlists-container" class="hidden">
                         <div id="playlists-menu">
                             <div id="list-header">Save video to...</div>
-                            <div><%- user.playlists %></div>
+                            <% if (user.playlists && user.playlists.length > 0) { %>
+                                <% user.playlists.forEach(function(playlist) { %>
+                                  <div id="playlist-item"><%= playlist.title %></div> <!-- assuming 'title' is a property of your playlist object -->
+                                <% }); %>
+                              <% } else { %>
+                                <div id="playlist-none">No playlists available.</div>
+                              <% } %>
                             <div><button>Create new playlist</button></div>
                         </div>
                         <div id="new-playlist-form">

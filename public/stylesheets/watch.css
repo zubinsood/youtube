@@ -141,8 +141,11 @@ body, html {
   background-color: rgb(33,33,33);
 }
 
-/* When hovering over list items */
+/* When hovering over list items
 #guest-menu div:hover, #playlists-menu div:hover {
 
-}
+} */
 
+#playlist-item, #playlist-none {
+  color: #ffffff;
+}
