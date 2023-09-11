@@ -26,17 +26,27 @@
                     <div id="playlists-container" class="hidden">
                         <div id="playlists-menu">
                             <div id="list-header">Save video to...</div>
-                            <% if (user.playlists && user.playlists.length > 0) { %>
-                                <% user.playlists.forEach(function(playlist) { %>
-                                  <div id="playlist-item"><%- playlist.title %></div> <!-- assuming 'title' is a property of your playlist object -->
-                                <% }); %>
-                              <% } else { %>
-                                <div id="playlist-none">No playlists available.</div>
-                              <% } %>
-                            <div><button id="create-playlist-button">Create new playlist</button></div>
+                            <% if (user.playlists && user.playlists.length> 0) { %>
+                                <form id="addToPlaylistForm" action="/watch/<%= video.videoId %>" method="POST">
+                                    <input type="hidden" name="operation" value="add">
+                                    <ul>
+                                        <% user.playlists.forEach(function(playlist) { %>
+                                            <li>
+                                                <input type="checkbox" name="playlistIds" value="<%= playlist._id %>">
+                                                <div id="playlist-item"><%- playlist.title %></div>
+                                            </li>
+                                            <% }); %>
+                                    </ul>
+                                    <button type="submit">Add to Selected Playlists</button>
+                                </form>
+                                <% } else { %>
+                                    <div id="playlist-none">No playlists available.</div>
+                                    <% } %>
+                                        <div><button id="create-playlist-button">Create new playlist</button></div>
                         </div>
                         <div id="new-playlist-form" class="hidden">
                             <form action="/watch/<%= video.videoId %>" method="POST">
+                                <input type="hidden" name="operation" value="create">
                                 <label>Name</label>
                                 <input type="text" name="playlist-title">
                                 <label>Description</label>
@@ -64,28 +74,72 @@
                 <!-- Comments go here -->
             </div>
         </div>
-    </body>
 
-    <script>
-        // Get references to the button and the dropdown menus
-        const playlistsButton = document.getElementById('playlists-button');
+        <script>
+            // Get references to the button and the dropdown menus
+            const playlistsButton = document.getElementById('playlists-button');
 
-        // Check if user is logged in and get reference to the corresponding menu
-        const playlistsContainer = document.getElementById('playlists-container');
-        const guestContainer = document.getElementById('guest-container');
+            // Check if user is logged in and get reference to the corresponding menu
+            const playlistsContainer = document.getElementById('playlists-container');
+            const guestContainer = document.getElementById('guest-container');
 
-        // Add a click event listener to the button
-        playlistsButton.addEventListener('click', () => {
-            if (playlistsContainer) {
-                playlistsContainer.classList.toggle('hidden');
-            } else if (guestContainer) {
-                guestContainer.classList.toggle('hidden');
+            // Add a click event listener to the button
+            playlistsButton.addEventListener('click', () => {
+                if (playlistsContainer) {
+                    playlistsContainer.classList.toggle('hidden');
+                } else if (guestContainer) {
+                    guestContainer.classList.toggle('hidden');
+                }
+            });
+            const createPlaylistButton = document.getElementById('create-playlist-button');
+            const newPlaylistForm = document.getElementById('new-playlist-form');
+
+            createPlaylistButton.addEventListener('click', () => {
+                newPlaylistForm.classList.toggle('hidden');
+            });
+
+            // AJAX
+
+            function serialize(form) {
+                const formData = new FormData(form);
+                return [...formData.entries()].map(e => encodeURIComponent(e[0]) + '=' + encodeURIComponent(e[1])).join('&');
             }
-        });
-        const createPlaylistButton = document.getElementById('create-playlist-button');
-        const newPlaylistForm = document.getElementById('new-playlist-form');
 
-        createPlaylistButton.addEventListener('click', () => {
-            newPlaylistForm.classList.toggle('hidden');
-        });
-    </script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('addToPlaylistForm');
+
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    const serializedData = serialize(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: serializedData
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(err => { throw err; }); // Extract error message from server response
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                alert('Video added to playlist!');
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error: ' + (error.message || 'Unknown error'));
+                        });
+                });
+            });
+
+        </script>
+
+    </body>

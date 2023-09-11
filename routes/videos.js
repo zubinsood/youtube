@@ -10,9 +10,16 @@ router.get('/', videosCtrl.index);
 router.use('/:id', videosCtrl.populateVideo);
 // GET /watch/:id
 router.get('/:id', videosCtrl.watch);
-// POST /watch/:id
-router.post('/:id', playlistsCtrl.createPlaylist);
-// POST /watch/:id for adding to playlist
-router.post('/:id', playlistsCtrl.addToPlaylist);
+// POST 2 different actions
+router.post('/:id', (req, res, next) => {
+    // console.log('OPERATION:', req.body.operation);
+    if (req.body.operation === 'create') {
+        return playlistsCtrl.createPlaylist(req, res, next);
+    } else if (req.body.operation === 'add') {
+        return playlistsCtrl.addToPlaylist(req, res, next);
+    } else {
+        res.status(400).json({ success: false, message: 'Invalid operation' });
+    }    
+});
 
 module.exports = router;

@@ -57,7 +57,6 @@
 /* List item styles */
 #guest-menu div, #playlists-menu div, #playlists-menu a {
   padding: 8px 16px;
-  cursor: pointer;
   color: #ffffff;
   background-color: rgb(33,33,33);
 }
@@ -122,4 +121,72 @@
 
 #new-playlist-form button:hover {
   background-color: rgb(63,63,63);
+}
+
+/* Styling for "Add to Selected Playlists" button */
+#addToPlaylistForm button {
+  background-color: rgb(40,40,40);
+  border: none;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s;
+  width: 100%; /* To make it span the entire width of the dropdown */
+  text-align: center; /* Align text to the center */
+  margin-top: 8px; /* Add some margin at the top for spacing */
+}
+
+#addToPlaylistForm button:hover {
+  background-color: rgb(63,63,63);
+}
+
+/* Styling for the checkboxes */
+#addToPlaylistForm input[type="checkbox"] {
+  margin-right: 8px; /* Add some margin to the right of the checkbox */
+}
+
+/* Styling for the playlist items in the dropdown */
+#playlist-item {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically align the checkbox and the playlist title */
+  padding: 8px 16px; /* Add some padding for spacing */
+  cursor: normal; /* Change the cursor to a pointer when hovering over the item */
+  transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
+
+/* Styling for the playlist titles */
+#playlist-item div {
+  flex-grow: 1; /* Allow the title to take up the remaining space */
+}
+
+/* Remove bullet points from the ul element */
+#addToPlaylistForm ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+/* Style the li elements to ensure checkbox and playlist title are inline */
+#addToPlaylistForm li {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically align the checkbox and the playlist title */
+  padding: 4px 0; /* Add some vertical padding for spacing between list items */
+}
+
+/* Adjust the margin for the checkbox for better alignment */
+#addToPlaylistForm input[type="checkbox"] {
+  margin-right: 12px; /* Add some margin to the right of the checkbox */
+}
+
+/* Style the li elements to have the same background color as the playlist title */
+#addToPlaylistForm li {
+  background-color: rgb(33,33,33); /* Set the background color */
+  padding: 8px 16px; /* Add some padding for spacing */
+  transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
+
+#addToPlaylistForm button {
+  margin-top: 0;
 }

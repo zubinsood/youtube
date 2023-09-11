@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Playlist = require('../models/playlists');
 const Video = require('../models/videos')
+const mongoose = require('mongoose');
 
 module.exports = {
     index,
@@ -28,7 +29,7 @@ async function index(req, res) {
 }
 
 async function getPlaylists(req, res) {
-    console.log(req.user);
+    // console.log(req.user);
     try {
         if (!req.user) {
             throw new Error('User not authenticated');
@@ -51,7 +52,7 @@ async function show(req, res) {
         if (!playlist) {
             return res.status(404).send('Playlist not found');
         }
-        console.log(playlist);
+        // console.log(playlist);
         res.render('playlists/show', { playlist });
     } catch (error) {
         console.error(error);
@@ -102,11 +103,23 @@ async function createPlaylist(req, res) {
 }
 
 async function addToPlaylist(req, res) {
-    console.log('add to palylist')
+    console.log('add to playlist');
     try {
+        console.log('REQ BODY IS HERE:', req.body);
         console.log('req video', req.video);
-        const playlistId = req.body['playlist-id']; // Assuming you send the playlist ID in the request
+        let playlistIds = req.body['playlistIds'];
+
+        // Convert to array if it's a string
+        if (typeof playlistIds === 'string') {
+            playlistIds = [playlistIds];
+        }
+
         const videoData = req.video; // Assuming you have middleware to populate this
+        const currentUser = req.user; // Assuming you have middleware to populate this
+
+        if (!playlistIds || !videoData) {
+            return res.status(400).json({ success: false, message: 'Missing required data' });
+        }        
 
         // Check if the video already exists
         let video = await Video.findOne({ videoId: videoData.videoId });
@@ -123,29 +136,43 @@ async function addToPlaylist(req, res) {
             await video.save();
         }
 
-        // Find the playlist by ID
-        const playlist = await Playlist.findById(playlistId);
+        // Loop through each of the playlistIds
+        for (let playlistId of playlistIds) {
+            // Validate the ObjectId
+            if (!mongoose.Types.ObjectId.isValid(playlistId)) {
+                console.log(`Invalid ObjectId: ${playlistId}`);
+                continue;
+            }
 
-        if (!playlist) {
-            return res.status(404).send('Playlist not found');
+            // Find the playlist by ID
+            const playlist = await Playlist.findById(playlistId);
+
+            if (!playlist) {
+                continue; // Skip to the next iteration if the playlist is not found
+            }
+
+            // Check if this playlist belongs to the current user
+            if (!currentUser.playlists.includes(playlist._id)) {
+                continue; // Skip to the next iteration if the playlist doesn't belong to the user
+            }
+
+            // Check if the video is already in the playlist
+            if (!playlist.videos.includes(video._id)) {
+                // Add the video to the playlist
+                playlist.videos.push(video._id);
+                await playlist.save();
+            }
         }
 
-        // Check if the video is already in the playlist
-        if (!playlist.videos.includes(video._id)) {
-            // Add the video to the playlist
-            playlist.videos.push(video._id);
-            await playlist.save();
-        } else {
-            return res.status(400).send('Video already exists in the playlist');
-        }
+        // Send back a JSON response
+        res.json({ success: true, message: 'Video added to selected playlists' });
 
-        res.json({ success: true, message: 'Video added to playlist' });
-    
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 }
+
 
 async function editPlaylist(req, res) {
     try {
